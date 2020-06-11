@@ -8,6 +8,7 @@ export class ProductsListComponent {
   pageTitle: string = 'Products List';
   imageWidth: number = 50;
   imageMargin: number = 2;
+  toggle: boolean = false;
   products: any[] = [
     {
       productId: 1,
@@ -30,4 +31,8 @@ export class ProductsListComponent {
       imageUrl: 'assets/images/garden_cart.png',
     },
   ];
+  // not Required to specify functin keyword
+  toggleImage(): void {
+    this.toggle = !this.toggle;
+  }
 }
