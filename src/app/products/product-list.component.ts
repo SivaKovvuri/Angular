@@ -11,7 +11,19 @@ export class ProductsListComponent implements OnInit {
   imageWidth: number = 50;
   imageMargin: number = 2;
   toggle: boolean = false;
-  listFilter: string = 'cart';
+
+  _listFilter = '';
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProducts = this.listFilter
+      ? this.performFilter(this.listFilter)
+      : this.products;
+  }
+
+  filteredProducts: IProduct[] = [];
   products: IProduct[] = [
     {
       productId: 1,
@@ -42,5 +54,18 @@ export class ProductsListComponent implements OnInit {
   // ngOnInit Must be Implemented
   ngOnInit(): void {
     console.log('Inside OnInit Method');
+  }
+
+  performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.products.filter(
+      (product: IProduct) =>
+        product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1
+    );
+  }
+
+  OnRatingClicked(message: string): void {
+    console.log('insid OnRatingClicked');
+    this.pageTitle = 'Product Management' + message;
   }
 }
